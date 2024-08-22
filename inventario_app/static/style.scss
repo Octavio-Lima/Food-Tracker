@@ -1,0 +1,434 @@
+$black: #050505;
+$blue: #2175d4;
+$red: #d42121;
+$white: #f5f5f5;
+$silver: #d5d5d5;
+$gray: #222;
+
+$f_small: 0.9rem;
+$f_mid: 1rem;
+$f_large: 1.1rem;
+$f_biggest: 1.5rem;
+$bradius: 0.2rem;
+
+* {
+  box-sizing: border-box;
+  font-size: $f_mid;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100%;
+}
+
+@mixin button($bg-color, $ft-color, $hover-bg-color, $hover-ft-color, $act-bg-color, $act-ft-color, $f-size) {
+  background-color: transparent;
+  transition: 0.15s;
+
+  border-radius: $bradius;
+  border: 2px solid $bg-color;
+  padding: 0.2rem 1rem;
+  margin: 0 0.2rem;
+
+  color: $ft-color;
+  text-decoration: none;
+  font-size: $f-size;
+  font-weight: bold;
+
+  &:hover {
+    background-color: $hover-bg-color;
+    color: $hover-ft-color;
+  }
+
+  &:active {
+    background-color: $act-bg-color;
+    color: $act-ft-color;
+    border: 2px solid $act-bg-color;
+  }
+}
+
+.table-container {
+  flex-grow: 1;
+  overflow-y: scroll;
+
+  tbody,
+  thead,
+  table {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-collapse: inherit;
+    border-spacing: 0;
+  }
+}
+
+.table {
+  width: 100%;
+  tbody {
+    height: 100%;
+  }
+
+  thead {
+    th {
+      padding: 0.6rem 0.4rem;
+      border-bottom: 1px solid $silver;
+    }
+  }
+
+  tbody {
+    tr {
+      background-color: $white;
+
+      &:nth-child(odd of :not(.hide)) {
+        background-color: scale-color($color: $white, $lightness: -3%);
+      }
+
+      &:hover {
+        background-color: $silver;
+      }
+    }
+
+    td {
+      border-bottom: 1px solid $silver;
+      padding: 0.6rem 0.4rem;
+    }
+  }
+}
+
+.navbar {
+  width: 100vw;
+  background-color: $blue;
+  display: flex;
+  padding: 1rem 1rem;
+  align-items: center;
+
+  &__logo {
+    width: 128px;
+    height: fit-content;
+  }
+
+  &__button {
+    background-color: transparent;
+    border: 2px solid $white;
+    text-decoration: none;
+    font-size: $f_small;
+
+    padding: 0.2rem 1rem;
+    color: $white;
+    transition: 0.15s;
+    border-radius: $bradius;
+    margin: 0 0.2rem;
+
+    font-weight: bold;
+
+    &:hover {
+      background-color: $white;
+      color: $black;
+    }
+
+    &:active {
+      background-color: $silver;
+      color: $black;
+      border: 2px solid $silver;
+    }
+  }
+}
+
+.filters {
+  width: 100vw;
+  background-color: $black;
+  display: flex;
+  padding: 0.4rem 1rem;
+
+  &__button {
+    background-color: transparent;
+    border: none;
+    font-size: $f_small;
+    border-radius: $bradius;
+
+    padding: 0.2rem 0.5rem;
+    color: $white;
+    transition: 0.15s;
+    margin: 0 0.2rem;
+
+    font-weight: bold;
+
+    &:hover {
+      background-color: $white;
+      color: $black;
+    }
+
+    &:active {
+      background-color: $silver;
+      color: $black;
+    }
+  }
+}
+
+.detail-table {
+  display: grid;
+  grid-template-columns: 12rem auto;
+
+  padding: 0.5rem;
+
+  thead * {
+    background-color: transparent !important;
+  }
+}
+
+.selected {
+  background-color: #155398;
+}
+
+/* -- Modal -- */
+.modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+
+  &__background {
+    background-color: black;
+    opacity: 50%;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__window {
+    background-color: $white;
+    width: 700px;
+    height: 80vh;
+    border-radius: 10px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+    overflow-y: auto;
+  }
+
+  &__body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    padding: 1rem 2rem 0rem;
+  }
+
+  &__title {
+    font-size: $f_biggest;
+    margin: 1rem auto;
+  }
+
+  &__button {
+    @include button($black, $black, $black, $white, $gray, $white, $f_mid);
+
+    &--special {
+      $darker: scale-color(
+        $color: $blue,
+        $lightness: -20%,
+      );
+      @include button($blue, $blue, $blue, $white, $darker, $white, $f_mid);
+    }
+
+    &--danger {
+      $darker: scale-color(
+        $color: $red,
+        $lightness: -20%,
+      );
+      @include button($red, $red, $red, $white, $darker, $white, $f_mid);
+    }
+  }
+
+  &__button-group {
+    display: flex;
+    margin: 0 0 0 auto;
+    padding: 2rem 0;
+  }
+}
+
+.form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: $f_small;
+    font-weight: bold;
+    margin: 1rem 0 0.2rem;
+  }
+
+  input,
+  select,
+  option {
+    font-size: $f_small;
+    padding: 0.2rem 0.3rem;
+    border-radius: $bradius;
+    border: 1px solid $silver;
+    background-color: $white;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    Modal                                   */
+/* -------------------------------------------------------------------------- */
+/* ------------------------------- Formularios ------------------------------ */
+
+/* -- detalhes do dispositivo -- */
+#device-detail {
+  h5 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  span {
+    font-weight: 500;
+  }
+}
+
+/* --------------------------------- Tabela --------------------------------- */
+
+th {
+  padding-left: 0.5rem;
+  text-align: left;
+  background-color: #fff;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+td {
+  padding-left: 0.5rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    Login                                   */
+/* -------------------------------------------------------------------------- */
+.login-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+
+  width: clamp(250px, 50%, 600px);
+  padding: 1rem;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin: 2rem auto;
+
+  h3 {
+    margin: 0 auto;
+  }
+
+  label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 16px 0 8px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin-top: 1rem;
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               Tela de Reparos                              */
+/* -------------------------------------------------------------------------- */
+
+.repair-table {
+  tr {
+    display: grid;
+    grid-template-columns: 6rem auto 7rem 3rem 3rem;
+    gap: 0;
+  }
+
+  td,
+  th {
+    height: 100%;
+    margin: auto 0;
+  }
+
+  td {
+    button {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 4px;
+      padding: 0.2rem 0 !important;
+      margin: 0 !important;
+    }
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.flexer {
+  flex-grow: 1;
+}
+
+.auto-left {
+  margin-left: auto !important;
+}
+
+.auto-top {
+  margin-top: auto !important;
+}
+
+.warning {
+  color: $red;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.spinner {
+  $size: 3rem;
+  z-index: 10;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 0.3rem solid $white;
+  border-top: 0.3rem solid $blue;
+  border-radius: 50%;
+  width: $size;
+  height: $size;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  color: $red;
+  white-space: pre-wrap;
+  margin-top: 0.2rem;
+}

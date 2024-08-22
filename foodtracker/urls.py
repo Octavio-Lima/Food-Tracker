@@ -5,6 +5,6 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('inventario_app.urls'))
+    path("admin/", admin.site.urls),
+    path("", include("foodtracker_app.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

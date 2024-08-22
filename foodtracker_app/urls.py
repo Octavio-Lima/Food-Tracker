@@ -1,6 +1,6 @@
 from django.urls import path
-from inventario_app import views
-from inventario_app import api
+from foodtracker_app import views
+from foodtracker_app import api
 
 urlpatterns = [
     path("", views.mainpage, name="index"),

@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout
 from django.contrib.staticfiles import finders
 from django.shortcuts import redirect
-from inventario_app.methods import currency_to_float
+from foodtracker_app.methods import currency_to_float
 from .views import login_page
 from .models import Dispositivo, Reparo
 import json, csv, mimetypes

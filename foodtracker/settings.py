@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DJANGO_DEBUG"))
 
-ALLOWED_HOSTS = ["127.0.0.1", "www.gomobili.com.br", "gomobili.com.br"]
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 SECURE_SSL_REDIRECT = not DEBUG
 
@@ -121,6 +121,10 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "src/"),
+]
 
 LOGIN_URL = "/login/"
 

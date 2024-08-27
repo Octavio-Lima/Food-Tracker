@@ -1,387 +1,147 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="{% static 'favicon.png' %}" type="image/x-icon" />
-    <title>Inventário Mobili</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="{% static 'favicon.png' %}" type="image/x-icon" />
+        <title>Food Tracker</title>
 
-    <script src="{% static 'mainpage/script.js' %}" defer type="module"></script>
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
-  </head>
+        <script src="{% static 'mainpage/script.js' %}" defer type="module"></script>
+        <link rel="stylesheet" href="{% static 'style.css' %}" />
+    </head>
 
-  <body>
-    {% csrf_token %}
-    <nav class="navbar">
-      <img src="{% static 'logo.png' %}" class="navbar__logo" />
+    <body>
+        {% csrf_token %}
+        <nav class="navbar">
+            <h1 class="navbar__logo" />Food Tracker</h1>
 
-      <div class="auto-left">
-        <button class="navbar__button" type="button" id="add-device">Adicionar</button>
-        <a role="button" class="navbar__button" href="{% url 'relatorios' %}">Gerar Relatório</a>
-        <a role="button" class="navbar__button" href="{% url 'importar' %}">Importar Planilha</a>
-        <a role="button" class="navbar__button" href="{% url 'logout_page' %}">Sair</a>
-      </div>
-    </nav>
-
-    <header class="filters">
-      <button type="button" class="filters__button" id="all">Todos</button>
-      <button type="button" class="filters__button" id="Computador">Computadores</button>
-      <button type="button" class="filters__button" id="Notebook">Notebooks</button>
-      <button type="button" class="filters__button" id="Celular">Celulares</button>
-      <button type="button" class="filters__button" id="Monitor">Monitor</button>
-      <button type="button" class="filters__button" id="Headset">Headset</button>
-    </header>
-
-    <main class="table-container">
-      <table class="table" id="device-table">
-        <thead>
-          <tr>
-            <th class="head-sort">Nome</th>
-            <th class="head-sort">Situação</th>
-            <th class="head-sort">Usuário</th>
-            <th class="head-sort">Patrimônio</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for device in device_list %}
-          <tr class="device" data-device="{{device}}">
-            <td class="device-type {{ device.view }}">{{device.nome}}</td>
-            <td class="device-type {{ device.view }}">{{device.status}}</td>
-            <td class="device-type {{ device.view }}">{{device.usuario}}</td>
-            <td class="device-type {{ device.view }}">{{device.patri}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </main>
-
-    <div class="hide modal" id="main-modal">
-      <div id="black-screen" class="hide close-modal modal__background"></div>
-
-      <div class="hide modal__window">
-        <div class="modal__body">
-          <h1 class="modal__title">Adicionar Dispositivo</h1>
-
-          <form class="form" id="form-add-device">
-            <label for="nome">Nome</label>
-            <input type="text" name="nome" id="nome" />
-            <p id="nome_error" class="error-message"></p>
-
-            <label for="usuario">Usuário</label>
-            <input type="text" name="usuario" id="usuario" />
-            <p id="usuario_error" class="error-message"></p>
-
-            <label for="status">Situação</label>
-            <select name="status" id="status">
-              <option value="Livre">Livre</option>
-              <option value="Em Uso">Em Uso</option>
-              <option value="Em Reparo">Em Reparo</option>
-              <option value="Danificado">Danificado</option>
-            </select>
-            <p id="situacao_error" class="error-message"></p>
-
-            <label for="tipoDispositivo">Tipo de Dispositivo</label>
-            <select name="tipoDispositivo" id="tipoDispositivo">
-              <option value="Notebook">Notebook</option>
-              <option value="Computador">Computador</option>
-              <option value="Celular">Celular</option>
-              <option value="Monitor">Monitor</option>
-              <option value="Headset">Headset</option>
-              <option value="Televisão">Televisão</option>
-              <option value="Impressora">Impressora</option>
-              <option value="Mouse">Mouse</option>
-              <option value="Teclado">Teclado</option>
-              <option value="Outros">Outros</option>
-            </select>
-            <p id="tipo_error" class="error-message"></p>
-
-            <label for="patri">Nº Patrimônio</label>
-            <input type="number" name="patri" id="patri" />
-            <p id="patri_error" class="error-message"></p>
-
-            <label for="marca">Marca</label>
-            <input type="text" name="marca" id="marca" />
-            <p id="marca_error" class="error-message"></p>
-
-            <label for="numeroCelular">Nº Celular</label>
-            <input type="text" name="numeroCelular" id="numeroCelular" class="phone-input" />
-            <p id="cel_error" class="error-message"></p>
-
-            <label for="valor">Preço</label>
-            <input type="text" name="valor" id="valor" class="price-input" />
-            <p id="preco_error" class="error-message"></p>
-
-            <p class="hide submit-warning warning">
-              Não foi possível criar o dispositivo. Verifique novamente as informações fornecidas.
-            </p>
-
-            <div class="modal__button-group auto-top">
-              <button type="submit" class="modal__button--special" id="submit-device">Adicionar</button>
-              <button type="button" class="modal__button close-modal">Voltar</button>
+            <div class="auto-left">
+                <button class="navbar__button" type="button" id="add-device">Add</button>
             </div>
-          </form>
-        </div>
-      </div>
+        </nav>
 
-      <div class="hide modal__window" id="device-detail">
-        <div class="modal__body">
-          <h1 class="modal__title">Detalhes do Dispositivo</h1>
+        <header class="filters">
+            <button type="button" class="filters__button" id="today">Today</button>
+            <button type="button" class="filters__button" id="yesterday">Yesterday</button>
+            <button type="button" class="filters__button" id="this-week">This Week</button>
+            <button type="button" class="filters__button" id="last-week">Last Week</button>
+        </header>
 
-          <table class="detail-table" id="detail-table">
-            <thead>
-              <tr>
-                <th>Nome</th>
-              </tr>
-              <tr>
-                <th>Usuário</th>
-              </tr>
-              <tr>
-                <th>Situação</th>
-              </tr>
-              <tr>
-                <th>Tipo de Dispositivo</th>
-              </tr>
-              <tr>
-                <th>Nº Patrimônio</th>
-              </tr>
-              <tr>
-                <th>Marca</th>
-              </tr>
-              <tr>
-                <th>Nº Celular</th>
-              </tr>
-              <tr>
-                <th>Preço</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td name="nome">...</td>
-              </tr>
-              <tr>
-                <td name="usuario">...</td>
-              </tr>
-              <tr>
-                <td name="status">...</td>
-              </tr>
-              <tr>
-                <td name="tipoDispositivo">...</td>
-              </tr>
-              <tr>
-                <td name="patri">...</td>
-              </tr>
-              <tr>
-                <td name="marca">...</td>
-              </tr>
-              <tr>
-                <td name="numeroCelular">...</td>
-              </tr>
-              <tr>
-                <td name="valor">...</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="modal__button-group auto-top">
-            <button type="button" class="modal__button--danger" id="delete-device">Eliminar</button>
-            <button type="button" class="modal__button--special" id="btn-load-repair">Reparos</button>
-            <button type="button" class="modal__button--special" id="btn-edit-device">Editar</button>
-            <button type="button" class="modal__button close-modal">Voltar</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="hide modal__window" id="edit-device">
-        <div class="modal__body">
-          <h1 class="modal__title">Editar Dispositivo</h1>
-
-          <form class="form" id="form-edit-device">
-            <label for="nome">Nome</label>
-            <input type="text" name="nome" id="nome" />
-            <p id="nome_error" class="error-message"></p>
-
-            <label for="usuario">Usuário</label>
-            <input type="text" name="usuario" id="usuario" />
-            <p id="usuario_error" class="error-message"></p>
-
-            <label for="status">Situação</label>
-            <select name="status" id="status">
-              <option value="Livre">Livre</option>
-              <option value="Em Uso">Em Uso</option>
-              <option value="Em Reparo">Em Reparo</option>
-              <option value="Danificado">Danificado</option>
-            </select>
-            <p id="status_error" class="error-message"></p>
-
-            <label for="tipoDispositivo">Tipo de Dispositivo</label>
-            <select name="tipoDispositivo" id="tipoDispositivo">
-              <option value="Notebook">Notebook</option>
-              <option value="Computador">Computador</option>
-              <option value="Celular">Celular</option>
-              <option value="Monitor">Monitor</option>
-              <option value="Headset">Headset</option>
-              <option value="Televisão">Televisão</option>
-              <option value="Impressora">Impressora</option>
-              <option value="Mouse">Mouse</option>
-              <option value="Teclado">Teclado</option>
-              <option value="Outros">Outros</option>
-            </select>
-            <p id="tipo_error" class="error-message"></p>
-
-            <label for="patri">Nº Patrimônio</label>
-            <input type="number" name="patri" id="patri" />
-            <p id="patri_error" class="error-message"></p>
-
-            <label for="marca">Marca</label>
-            <input type="text" name="marca" id="marca" />
-            <p id="marca_error" class="error-message"></p>
-
-            <label for="numeroCelular">Nº Celular</label>
-            <input type="text" name="numeroCelular" id="numeroCelular" class="phone-input" />
-            <p id="cel_error" class="error-message"></p>
-
-            <label for="valor">Preço</label>
-            <input type="text" name="valor" id="valor" class="price-input" />
-            <p id="preco_error" class="error-message"></p>
-
-            <p class="hide submit-warning warning">
-              Não foi possível criar o dispositivo. Verifique novamente as informações fornecidas.
-            </p>
-
-            <div class="modal__button-group auto-top">
-              <button type="submit" class="modal__button--special" id="submit-device">Salvar</button>
-              <button type="button" class="modal__button go-to-detail">Voltar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="hide modal__window" id="repair-device">
-        <div class="modal__body">
-          <h4 class="modal__title">Reparos do Dispositivo</h4>
-
-          <div class="flexer">
-            <table class="table repair-table">
-              <thead>
-                <tr>
-                  <th>Dia</th>
-                  <th>Reparo</th>
-                  <th>Valor</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="repair-list">
-                <tr>
-                  <td>25/05/22</td>
-                  <td>Tela consertada</td>
-                  <td>R$ 250,00</td>
-                  <td><button>✏</button></td>
-                  <td><button>✖</button></td>
-                </tr>
-                <tr>
-                  <td>25/05/22</td>
-                  <td>Tela consertada</td>
-                  <td>R$ 250,00</td>
-                  <td><button>✏</button></td>
-                  <td><button>✖</button></td>
-                </tr>
-              </tbody>
+        <main class="table-container">
+            <table class="table" id="device-table">
+                <thead>
+                    <tr>
+                        <th class="head-sort">Food Name</th>
+                        <th class="head-sort">Date</th>
+                        <th class="head-sort">Time</th>
+                        <th class="head-sort">Calories</th>
+                        <th class="head-sort">Carbs</th>
+                        <th class="head-sort">Fats</th>
+                        <th class="head-sort">Protein</th>
+                        <th class="head-sort">Fiber</th>
+                        <th class="head-sort">Sodium</th>
+                    </tr>
+                </thead>
+                <tbody id = "food-entry-table">
+                </tbody>
             </table>
-          </div>
+        </main>
 
-          <div class="modal__button-group auto-top">
-            <button type="button" class="modal__button--special" id="btn-add-new-repair">Adicionar Reparo</button>
-            <button type="button" class="modal__button go-to-detail" id="btn-close-repair">Voltar</button>
-          </div>
+        <div class="hide modal" id="main-modal">
+            <div id="black-screen" class="hide close-modal modal__background"></div>
+
+            <div class="hide modal__window">
+                <div class="modal__body">
+                    <h1 class="modal__title">Add Entry</h1>
+
+                    <form class="form" id="form-food">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" />
+                        <p id="name_error" class="error-message"></p>
+
+                        <label for="date">Date</label>
+                        <input type="date" name="date" id="date" />
+                        <p id="date_error" class="error-message"></p>
+
+                        <label for="time">Time</label>
+                        <input type="time" name="time" id="time" />
+                        <p id="time_error" class="error-message"></p>
+                        <div class="food-table-container">
+                            <table class="food-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Kcal</th>
+                                        <th>Carbs (g)</th>
+                                        <th>Fats (g)</th>
+                                        <th>Protein (g)</th>
+                                        <th>Fibers (g)</th>
+                                        <th>Sodium (mg)</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ingredient-table">
+                                    <tr class="food-table-entry">
+                                        <td><input type="text" class="name"></td>
+                                        <td><input type="number" class="kcal"></td>
+                                        <td><input type="number" class="carb"></td>
+                                        <td><input type="number" class="fats"></td>
+                                        <td><input type="number" class="prot"></td>
+                                        <td><input type="number" class="fibe"></td>
+                                        <td><input type="number" class="sodi"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot id="ingredient-footer">
+                                    <tr>
+                                        <td>Total</td>
+                                        <td><span class="kcal"></span><span>kcal</span></td>
+                                        <td><span class="carb"></span><span>g</span></td>
+                                        <td><span class="fats"></span><span>g</span></td>
+                                        <td><span class="prot"></span><span>g</span></td>
+                                        <td><span class="fibe"></span><span>g</span></td>
+                                        <td><span class="sodi"></span><span>mg</span></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div class="add-button-container">
+                                <button type="button" class="modal__button--special" id="add-ingredient">Add</button>
+                                <button type="button" class="modal__button--special">Add From Template</button>
+                            </div>
+                        </div>
+
+                        <div class="modal__button-group auto-top">
+                            <button type="button" class="modal__button--special" id="save-food">Save</button>
+                            <button type="button" class="modal__button--danger" id="delete-food">Eliminar</button>
+                            <button type="button" class="modal__button close-modal">Back</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="hide modal__window">
+                <div class="modal__body">
+                    <h4 class="modal__title">Remover Dispositivo</h4>
+
+                    <p class="center-text">Tem certeza que deseja remover o dispositivo selecionado?</p>
+                    <div class="modal__button-group auto-top">
+                        <button type="submit" class="modal__button--danger" id="confirm-delete">Remover</button>
+                        <button type="button" class="modal__button go-to-add" id="btn-close-edit-repair">
+                            Voltar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hide modal__window">
+                <div class="modal__body">
+                    <h4 class="modal__title">Carregando</h4>
+
+                    <div class="spinner"></div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="hide modal__window" id="add-repair">
-        <div class="modal__body">
-          <h4 class="modal__title">Adicionar Reparo</h4>
-
-          <form class="form">
-            <label for="date">Dia:</label>
-            <input class="form-control" type="date" name="date" id="input-repair-date" />
-            <p id="data_error" class="error-message"></p>
-
-            <label for="reparo">Nome:</label>
-            <input class="form-control" type="text" name="reparo" id="input-repair" />
-            <p id="nome_error" class="error-message"></p>
-
-            <label for="repair_value">Valor:</label>
-            <input class="form-control price-input" type="text" name="repair_value" id="input-repair-value" />
-            <p id="preco_error" class="error-message"></p>
-          </form>
-
-          <div class="modal__button-group auto-top">
-            <button type="submit" class="modal__button--special" id="submit-repair">Adicionar</button>
-            <button type="button" class="modal__button go-to-repair" id="btn-close-repair-modal">Voltar</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="hide modal__window" id="edit-repair">
-        <div class="modal__body">
-          <h4 class="modal__title">Editar Reparo</h4>
-
-          <form class="form">
-            <input class="form-control" type="number" id="input-edit-repair-id" hidden />
-
-            <label for="date">Dia:</label>
-            <input class="form-control" type="date" name="date" id="input-edit-repair-date" />
-            <p id="data_error" class="error-message"></p>
-
-            <label for="reparo">Nome:</label>
-            <input class="form-control" type="text" name="reparo" id="input-edit-repair" />
-            <p id="nome_error" class="error-message"></p>
-
-            <label for="repair_value">Valor:</label>
-            <input class="form-control price-input" type="text" name="repair_value" id="input-edit-repair-value" />
-            <p id="preco_error" class="error-message"></p>
-          </form>
-
-          <div class="modal__button-group auto-top">
-            <button type="submit" class="modal__button--special" id="submit-edit-repair">Salvar</button>
-            <button type="button" class="modal__button go-to-repair" id="btn-close-edit-repair">Voltar</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="hide modal__window">
-        <div class="modal__body">
-          <h4 class="modal__title">Remover Dispositivo</h4>
-
-          <p class="center-text">Tem certeza que deseja remover o dispositivo selecionado?</p>
-          <div class="modal__button-group auto-top">
-            <button type="submit" class="modal__button--danger" id="confirm-delete">Remover</button>
-            <button type="button" class="modal__button go-to-detail" id="btn-close-edit-repair">Voltar</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="hide modal__window">
-        <div class="modal__body">
-          <h4 class="modal__title">Remover Reparo</h4>
-
-          <p class="center-text">Tem certeza que deseja remover o reparo selecionado?</p>
-          <div class="modal__button-group auto-top">
-            <button type="submit" class="modal__button--danger" id="confirm-delete-repair" data-id="-1">Remover</button>
-            <button type="button" class="modal__button go-to-repair" id="btn-close-edit-repair">Voltar</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="hide modal__window">
-        <div class="modal__body">
-          <h4 class="modal__title">Carregando</h4>
-
-          <div class="spinner"></div>
-        </div>
-      </div>
-    </div>
-  </body>
+    </body>
 </html>

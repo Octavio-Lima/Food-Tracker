@@ -1,0 +1,79 @@
+{
+    "restoreTerminals.terminals": [
+        {
+            "splitTerminals": [
+                {
+                    "name": "SASS",
+                    "commands": ["sass --watch src"]
+                }
+            ]
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "TypeScript",
+                    "commands": ["tsc -w"]
+                }
+            ]
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "Django",
+                    "commands": ["py manage.py runserver"]
+                }
+            ]
+        }
+    ],
+    "hidefiles.configurationType": "local",
+    "hidefiles.globalConfig": {
+        "profiles": [
+            {
+                "name": "Default",
+                "detail": "",
+                "description": "Test",
+                "hidden": [
+                    ".vscode/",
+                    ".venv",
+                    ".env",
+                    "**/*.js",
+                    "**/*.js.map",
+                    "**/*.css",
+                    "**/*.css.map",
+                    "**/__pycache__",
+                    "**/__init__.py",
+                    "db.sqlite3",
+                    ".gitignore",
+                    ".gitattributes",
+                    "tsconfig.json",
+                    "requirements.txt",
+                    "manage.py"
+                ]
+            }
+        ]
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        ".vscode/": true,
+        ".venv": true,
+        ".env": true,
+        "**/*.js": true,
+        "**/*.js.map": true,
+        "**/*.css": true,
+        "**/*.css.map": true,
+        "**/__pycache__": true,
+        "**/__init__.py": true,
+        "db.sqlite3": true,
+        ".gitignore": true,
+        ".gitattributes": true,
+        "tsconfig.json": true,
+        "requirements.txt": true,
+        "manage.py": true
+    },
+    "hidefiles.selectedProfile": "Default",
+    "prettier.tabWidth": 4
+}

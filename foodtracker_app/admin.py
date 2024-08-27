@@ -1,6 +1,4 @@
 from django.contrib import admin
-from .models import Dispositivo, Reparo
+from .models import FoodEntry
 
-# Register your models here.
-admin.site.register(Dispositivo)
-admin.site.register(Reparo)
+admin.site.register(FoodEntry)

@@ -55,6 +55,7 @@ body {
 .table-container {
     flex-grow: 1;
     overflow-y: scroll;
+    height: 100%;
 
     tbody,
     thead,
@@ -65,8 +66,6 @@ body {
         border-collapse: inherit;
         border-spacing: 0;
     }
-
-    height: 100%;
 }
 
 .table {

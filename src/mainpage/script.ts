@@ -40,6 +40,7 @@ export class MainPage {
             b.addEventListener("click", () => {
                 this.lastFilter = b.id;
                 filterDevices(b.id, this.foodEntries);
+                updateFooter(this.entryTable, this.entryFooter);
             })
         );
         btn_addDevice?.addEventListener("click", () => this.ingrTable.load());

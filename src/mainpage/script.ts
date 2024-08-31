@@ -4,7 +4,6 @@ import { filterDevices, sortDevices } from "../core/filters/filters.js";
 import { APIFoodEntry } from "../core/api/api-foodEntry.js";
 import { Forms } from "../core/form/form-func.js";
 import { IngredientEntry } from "../model/ingredient.js";
-import { sumFromElement } from "../core/sum-element.js";
 import { inputsFoodForm } from "../core/form/load-form-inputs.js";
 import { FoodForm } from "../core/form/form.js";
 import { getNow, ISOadjustTimezone } from "../core/time/date.js";
@@ -179,19 +178,17 @@ export class IngredientsManager {
     }
 
     calculateTotal() {
-        let kcal = sumFromElement(this.table.querySelectorAll(".kcal"));
-        let prot = sumFromElement(this.table.querySelectorAll(".prot"));
-        let carb = sumFromElement(this.table.querySelectorAll(".carb"));
-        let fats = sumFromElement(this.table.querySelectorAll(".fats"));
-        let fibe = sumFromElement(this.table.querySelectorAll(".fibe"));
-        let sodi = sumFromElement(this.table.querySelectorAll(".sodi"));
+        let fields = ["kcal", "prot", "carb", "fats", "fibe", "sodi"];
 
-        Forms.setText(this.footer, ".kcal", kcal.toString());
-        Forms.setText(this.footer, ".prot", prot.toString());
-        Forms.setText(this.footer, ".carb", carb.toString());
-        Forms.setText(this.footer, ".fats", fats.toString());
-        Forms.setText(this.footer, ".fibe", fibe.toString());
-        Forms.setText(this.footer, ".sodi", sodi.toString());
+        fields.forEach((f) => {
+            Forms.setText(
+                this.footer,
+                `.${f}`,
+                Array.from(this.table.querySelectorAll<HTMLInputElement>(`.${f}`))
+                    .reduce((c, v) => (c += parseInt(v.value)), 0)
+                    .toString()
+            );
+        });
     }
 }
 

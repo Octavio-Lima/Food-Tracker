@@ -1,0 +1,1 @@
+py D:\GitHub\food-tracker\manage.py runserver 0.0.0.0:6500

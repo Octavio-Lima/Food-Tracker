@@ -5,6 +5,12 @@ export class Forms {
         return el;
     }
 
+    static getText(form: HTMLElement, query: string, nullValue = ""): string {
+        let el = form.querySelector<HTMLInputElement>(query)?.textContent ?? nullValue;
+
+        return el;
+    }
+
     static getInt = (form: HTMLElement, query: string, nullValue = ""): number =>
         parseInt(form.querySelector<HTMLInputElement>(query)?.value ?? nullValue ?? "0");
 

@@ -77,16 +77,22 @@ export class FoodEntry extends Food {
         let sodi = document.createElement("td");
 
         entry.classList.add("device");
+        kcal.classList.add("kcal");
+        carb.classList.add("carb");
+        fats.classList.add("fats");
+        prot.classList.add("prot");
+        fibe.classList.add("fibe");
+        sodi.classList.add("sodi");
 
         name.textContent = this.name;
         date.textContent = this.date.toLocaleDateString("pt-BR");
         time.textContent = this.time.toString();
-        kcal.textContent = this.kcal.toString();
-        carb.textContent = this.carb.toString();
-        fats.textContent = this.fats.toString();
-        prot.textContent = this.prot.toString();
-        fibe.textContent = this.fibe.toString();
-        sodi.textContent = this.sodi.toString();
+        kcal.textContent = this.kcal.toString() + "kcal";
+        carb.textContent = this.carb.toString() + "g";
+        fats.textContent = this.fats.toString() + "g";
+        prot.textContent = this.prot.toString() + "g";
+        fibe.textContent = this.fibe.toString() + "g";
+        sodi.textContent = this.sodi.toString() + "mg";
 
         entry.append(name);
         entry.append(date);

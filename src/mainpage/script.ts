@@ -8,6 +8,7 @@ import { sumFromElement } from "../core/sum-element.js";
 import { inputsFoodForm } from "../core/form/load-form-inputs.js";
 import { FoodForm } from "../core/form/form.js";
 import { getNow, ISOadjustTimezone } from "../core/time/date.js";
+import { updateFooter } from "../core/footer/update-footer.js";
 
 document.cookie = `django_tz=${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
 
@@ -28,8 +29,9 @@ export class MainPage {
 
     btn_saveDelete = document.querySelector("#confirm-delete");
     btn_save = document.querySelector("#save-food");
-    entryTable = document.querySelector<HTMLTableElement>("#food-entry-table")!;
     btn_deleteDevice = document.querySelector("#delete-food");
+    entryTable = document.querySelector<HTMLTableElement>("#food-entry-table")!;
+    entryFooter = document.querySelector<HTMLTableElement>("#entry-footer")!;
 
     constructor() {
         this.btn_save?.addEventListener("click", async () => await this.save());
@@ -51,6 +53,7 @@ export class MainPage {
         this.foodEntries = await this.foodEntryApi.getFoodTableEntries();
         this.foodEntries.forEach((e) => this.entryTable?.append(e.getElement(this)));
         filterDevices(this.lastFilter, this.foodEntries);
+        updateFooter(this.entryTable, this.entryFooter);
     }
 
     async remove() {

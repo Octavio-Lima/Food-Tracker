@@ -307,23 +307,6 @@ body {
     }
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                    Modal                                   */
-/* -------------------------------------------------------------------------- */
-/* ------------------------------- Formularios ------------------------------ */
-
-/* -- detalhes do dispositivo -- */
-#device-detail {
-    h5 {
-        font-size: 1rem;
-        font-weight: bold;
-    }
-
-    span {
-        font-weight: 500;
-    }
-}
-
 /* --------------------------------- Tabela --------------------------------- */
 
 th {
@@ -337,72 +320,6 @@ th {
 
 td {
     padding-left: 0.5rem;
-}
-
-/* -------------------------------------------------------------------------- */
-/*                                    Login                                   */
-/* -------------------------------------------------------------------------- */
-.login-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.login-form {
-    display: flex;
-    flex-direction: column;
-
-    width: clamp(250px, 50%, 600px);
-    padding: 1rem;
-    border: 1px solid #000;
-    border-radius: 5px;
-    margin: 2rem auto;
-
-    h3 {
-        margin: 0 auto;
-    }
-
-    label {
-        font-size: 1rem;
-        font-weight: bold;
-        margin: 16px 0 8px;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-
-        button {
-            margin-top: 1rem;
-        }
-    }
-}
-
-/* -------------------------------------------------------------------------- */
-/*                               Tela de Reparos                              */
-/* -------------------------------------------------------------------------- */
-
-.repair-table {
-    tr {
-        display: grid;
-        grid-template-columns: 6rem auto 7rem 3rem 3rem;
-        gap: 0;
-    }
-
-    td,
-    th {
-        height: 100%;
-        margin: auto 0;
-    }
-
-    td {
-        button {
-            width: 2rem;
-            height: 2rem;
-            border-radius: 4px;
-            padding: 0.2rem 0 !important;
-            margin: 0 !important;
-        }
-    }
 }
 
 .hide {

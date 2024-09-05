@@ -168,7 +168,7 @@ body {
 }
 
 .filters {
-    width: 100vw;
+    width: 100%;
     background-color: $black;
     display: flex;
     padding: 0.4rem 1rem;
@@ -195,6 +195,20 @@ body {
             background-color: $silver;
             color: $black;
         }
+    }
+
+    &__goal {
+        background-color: transparent;
+        border: none;
+        font-size: $f_small;
+        border-radius: $bradius;
+
+        padding: 0.2rem 0.5rem;
+        color: $white;
+        transition: 0.15s;
+        margin: 0 0.2rem 0 auto;
+
+        font-weight: bold;
     }
 }
 

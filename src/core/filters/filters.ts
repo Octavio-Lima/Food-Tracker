@@ -1,12 +1,22 @@
 import { FoodEntry } from "../../model/food.js";
 import { getYesterday, ISOadjustTimezone } from "../time/date.js";
 
-export function filterDevices(filter_by = "today", foodList: FoodEntry[]) {
+export function filterDevices(filter_by = "today", foodList: FoodEntry[], extra: Function) {
+    const day = (d: FoodEntry) => {
+        d.display();
+        extra(1);
+    };
+
+    const week = (d: FoodEntry) => {
+        d.display();
+        extra(7);
+    };
+
     foodList.forEach((d) => {
-        if (filter_by === "today" && filterToday(d.date)) d.display();
-        else if (filter_by === "yesterday" && filterYesterday(d.date)) d.display();
-        else if (filter_by === "this-week" && filterThisWeek(d.date)) d.display();
-        else if (filter_by === "last-week" && filterLastWeek(d.date)) d.display();
+        if (filter_by === "today" && filterToday(d.date)) day(d);
+        else if (filter_by === "yesterday" && filterYesterday(d.date)) day(d);
+        else if (filter_by === "this-week" && filterThisWeek(d.date)) week(d);
+        else if (filter_by === "last-week" && filterLastWeek(d.date)) week(d);
         else d.hide();
     });
 }

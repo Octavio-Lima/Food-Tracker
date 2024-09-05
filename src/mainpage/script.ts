@@ -8,6 +8,7 @@ import { inputsFoodForm } from "../core/form/load-form-inputs.js";
 import { FoodForm } from "../core/form/form.js";
 import { getNow, ISOadjustTimezone } from "../core/time/date.js";
 import { updateFooter } from "../core/footer/update-footer.js";
+import { updateGoal } from "../core/goal/update-goal.js";
 
 document.cookie = `django_tz=${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
 
@@ -15,6 +16,10 @@ const btn_addDevice = document.querySelector("#add-device");
 const filterButtons = document.querySelectorAll(".filters__button");
 const sortButtons = document.querySelectorAll(".head-sort");
 const btn_goToAdd = document.querySelectorAll(".go-to-add");
+const el_remaining = document.querySelector("#remaining")!;
+
+const dailyGoal = 1500;
+let goalMultiplier = 1;
 
 export class MainPage {
     foodEntries: FoodEntry[] = [];
@@ -38,8 +43,13 @@ export class MainPage {
         filterButtons.forEach((b) =>
             b.addEventListener("click", () => {
                 this.lastFilter = b.id;
-                filterDevices(b.id, this.foodEntries);
+                filterDevices(b.id, this.foodEntries, (v: number) => (goalMultiplier = v));
                 updateFooter(this.entryTable, this.entryFooter);
+                updateGoal(
+                    el_remaining,
+                    dailyGoal * goalMultiplier,
+                    parseInt(this.entryFooter.querySelector(".total-kcal")!.textContent!.split("kcal")[0])
+                );
             })
         );
         btn_addDevice?.addEventListener("click", () => this.ingrTable.load());
@@ -52,8 +62,13 @@ export class MainPage {
         this.clearEntries();
         this.foodEntries = await this.foodEntryApi.getFoodTableEntries();
         this.foodEntries.forEach((e) => this.entryTable?.append(e.getElement(this)));
-        filterDevices(this.lastFilter, this.foodEntries);
+        filterDevices(this.lastFilter, this.foodEntries, (v: number) => (goalMultiplier = v));
         updateFooter(this.entryTable, this.entryFooter);
+        updateGoal(
+            el_remaining,
+            dailyGoal * goalMultiplier,
+            parseInt(this.entryFooter.querySelector(".total-kcal")!.textContent!.split("kcal")[0])
+        );
     }
 
     async remove() {
@@ -181,13 +196,11 @@ export class IngredientsManager {
         let fields = ["kcal", "prot", "carb", "fats", "fibe", "sodi"];
 
         fields.forEach((f) => {
-            Forms.setText(
-                this.footer,
-                `.${f}`,
-                Array.from(this.table.querySelectorAll<HTMLInputElement>(`.${f}`))
-                    .reduce((c, v) => (c += parseInt(v.value)), 0)
-                    .toString()
-            );
+            let total = Array.from(this.table.querySelectorAll<HTMLInputElement>(`.${f}`))
+                .reduce((c, v) => (c += parseInt(v.value)), 0)
+                .toString();
+
+            Forms.setText(this.footer, `.${f}`, total);
         });
     }
 }

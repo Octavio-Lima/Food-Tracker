@@ -128,12 +128,6 @@ body {
 }
 
 .navbar {
-    width: 100vw;
-    background-color: $blue;
-    display: flex;
-    padding: 1rem 1rem;
-    align-items: center;
-
     &__logo {
         width: 128px;
         height: fit-content;
@@ -240,36 +234,6 @@ body {
         z-index: 1;
         width: 100%;
         height: 100%;
-    }
-
-    &__window {
-        background-color: $white;
-        width: 900px;
-        height: 80vh;
-        border-radius: 10px;
-
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-
-        display: flex;
-        flex-direction: column;
-        z-index: 3;
-        overflow-y: auto;
-    }
-
-    &__body {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-
-        padding: 1rem 2rem 0rem;
-    }
-
-    &__title {
-        font-size: $f_biggest;
-        margin: 1rem auto;
     }
 
     &__button {
@@ -384,12 +348,6 @@ td {
     100% {
         transform: rotate(360deg);
     }
-}
-
-.error-message {
-    color: $red;
-    white-space: pre-wrap;
-    margin-top: 0.2rem;
 }
 
 .food-table-container {
